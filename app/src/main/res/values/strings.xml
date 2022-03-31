@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Feed Your Cat</string>
+
+    <string name="tab_label_feed">Feed</string>
+    <string name="tab_label_cats">Cats</string>
+
+    <string name="cd_button_add">Button add</string>
 </resources>

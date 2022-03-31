@@ -11,7 +11,10 @@
         android:theme="@style/Theme.FeedYourCat">
 
         <activity android:name=".features.main.MainActivity" />
-        <activity android:name=".features.splash.SplashActivity" />
+
+        <activity
+            android:name=".features.splash.SplashActivity"
+            android:theme="@style/Theme.FeedYourCat.Splash" />
 
         <activity-alias
             android:name="Launcher"

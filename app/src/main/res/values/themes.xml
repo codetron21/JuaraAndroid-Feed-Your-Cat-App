@@ -1,16 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.FeedYourCat" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+
+    <style name="Theme.FeedYourCat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/orange_primary</item>
+        <item name="colorPrimaryVariant">@color/orange_dark_primary</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnBackground">@color/black</item>
+        <item name="colorSecondary">@color/green_secondary</item>
+        <item name="colorSecondaryVariant">@color/green_dark_secondary</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="circularProgressIndicatorStyle">@style/ProgressBarStyle</item>
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
+    </style>
+
+    <style name="Theme.FeedYourCat.Splash">
+        <item name="android:windowBackground">@color/orange_primary</item>
     </style>
 </resources>
