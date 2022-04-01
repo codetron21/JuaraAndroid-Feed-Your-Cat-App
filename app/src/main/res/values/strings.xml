@@ -5,4 +5,9 @@
     <string name="tab_label_cats">Cats</string>
 
     <string name="cd_button_add">Button add</string>
+    <string name="sort_by">Sort By</string>
+
+    <string name="sort_name">Name</string>
+    <string name="sort_newest">Newest</string>
+    <string name="sort_latest">Latest</string>
 </resources>

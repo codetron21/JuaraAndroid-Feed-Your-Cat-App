@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_rounded"
+    tools:parentTag="android.widget.FrameLayout">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/bg_rounded"
+        android:backgroundTint="@color/white"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rounded"
+            android:backgroundTint="@color/orange_primary"
+            android:gravity="center"
+            android:minWidth="140dp"
+            android:minHeight="24dp"
+            android:padding="4dp"
+            android:textAllCaps="false"
+            app:fontFamily="@font/poppins_medium"
+            tools:text="@string/tab_label_feed" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="match_parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rounded"
+            android:backgroundTint="@color/grey"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:minWidth="140dp"
+            android:minHeight="24dp"
+            android:padding="4dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:fontFamily="@font/poppins_medium"
+            tools:text="@string/tab_label_cats" />
+
+    </LinearLayout>
+
+</merge>

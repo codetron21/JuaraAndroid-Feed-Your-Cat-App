@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SwitchTabView">
+        <attr name="stv_text_tab_one" format="string"/>
+        <attr name="stv_text_tab_two" format="string"/>
+        <attr name="stv_tab_selected" format="enum">
+            <enum name="tab_one" value="0"/>
+            <enum name="tab_two" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

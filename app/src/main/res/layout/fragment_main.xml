@@ -11,13 +11,15 @@
         android:background="@color/orange_primary"
         app:title="@string/app_name" />
 
-    <com.google.android.material.tabs.TabLayout
+    <com.codetron.feedyourcat.common.view.SwitchTabView
+        android:id="@+id/switch_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_bottom_rounded"
-        app:tabBackground="@color/white"
-        app:tabGravity="center"
-        app:tabIndicator="@null" />
+        android:paddingVertical="4dp"
+        app:stv_tab_selected="tab_one"
+        app:stv_text_tab_one="@string/tab_label_feed"
+        app:stv_text_tab_two="@string/tab_label_cats" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager_menu"
