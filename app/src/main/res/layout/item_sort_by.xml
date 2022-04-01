@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
     android:maxLines="1"
+    android:paddingVertical="8dp"
     android:textAlignment="center"
     android:textSize="18sp"
     app:fontFamily="@font/poppins_light"

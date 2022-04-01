@@ -49,4 +49,8 @@ class SortDialog(
         )
     }
 
+    companion object {
+        const val TAG = "SortDialog"
+    }
+
 }

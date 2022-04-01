@@ -3,7 +3,7 @@ package com.codetron.feedyourcat.common.adapter
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.codetron.feedyourcat.features.main.ListCatFragment
-import com.codetron.feedyourcat.features.main.ListFeedCatFragment
+import com.codetron.feedyourcat.features.main.ListFeedFragment
 
 class PagerMainAdapter(f: Fragment) : FragmentStateAdapter(f) {
 
@@ -13,7 +13,7 @@ class PagerMainAdapter(f: Fragment) : FragmentStateAdapter(f) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ListFeedCatFragment()
+            0 -> ListFeedFragment()
             1 -> ListCatFragment()
             else -> throw IllegalStateException()
         }

@@ -13,6 +13,8 @@
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="circularProgressIndicatorStyle">@style/ProgressBarStyle</item>
         <item name="toolbarStyle">@style/ToolbarStyle</item>
+        <item name="shapeAppearanceLargeComponent">@style/LargeComponentStyle</item>
+        <item name="shapeAppearanceMediumComponent">@style/MediumComponentStyle</item>
     </style>
 
     <style name="Theme.FeedYourCat.Splash">

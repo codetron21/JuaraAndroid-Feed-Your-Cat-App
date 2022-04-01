@@ -18,4 +18,15 @@
     <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
         <item name="titleTextAppearance">@style/TextTitleStyle</item>
     </style>
+
+    <style name="LargeComponentStyle" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+    </style>
+
+    <style name="MediumComponentStyle" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
 </resources>
