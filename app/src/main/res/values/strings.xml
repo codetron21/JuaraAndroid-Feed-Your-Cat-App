@@ -6,7 +6,25 @@
     <string name="sort_name">Name</string>
     <string name="sort_newest">Newest</string>
     <string name="sort_latest">Latest</string>
+    <string name="add_cat_title">Cat</string>
+    <string name="text_save">Save</string>
+    <string name="text_update">Update</string>
+    <string name="text_delete">Delete</string>
+    <string name="action_menu_edit">Action Edit</string>
+    <string name="message_success_add_data">Success save data</string>
+    <string name="message_success_update_data">Success update data</string>
+    <string name="message_fail_add_data">Fail save data</string>
+    <string name="message_fail_update_data">Fail update data</string>
+    <string name="message_delete_data">Are you sure you want to delete the data?</string>
+    <string name="message_exit">Are you sure you want to exit from this page?</string>
+    <string name="message_cancel_edit">Are you sure you want to cancel edit data?</string>
+    <string name="message_input_error">Cat name can\'t be empty</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    <string name="message_empty_data">Data is empty!</string>
 
     <string name="cd_button_add">Button add</string>
     <string name="cd_image">Image</string>
+    <string name="hint_cat_name">cat name</string>
+    <string name="hint_cat_birthdate">cat birthdate</string>
 </resources>

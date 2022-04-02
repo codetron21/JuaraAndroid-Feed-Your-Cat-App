@@ -25,6 +25,11 @@ class SwitchTabView @JvmOverloads constructor(
     private var _binding: ViewTabSwitchBinding? = null
     val view get() = _binding
 
+    private var selectedColor: Int = 0
+    private var unSelectedColor: Int = 0
+    private var textSelectedColor: Int = 0
+    private var textUnSelectedColor: Int = 0
+
     private var vpRef: ViewPager2? = null
 
     private val pagerCallback by lazy {
@@ -62,6 +67,27 @@ class SwitchTabView @JvmOverloads constructor(
         val textOne = typedArray.getString(R.styleable.SwitchTabView_stv_text_tab_one)
         val textTwo = typedArray.getString(R.styleable.SwitchTabView_stv_text_tab_two)
         val selectedTab = typedArray.getInt(R.styleable.SwitchTabView_stv_tab_selected, 0)
+        selectedColor =
+            typedArray.getColor(
+                R.styleable.SwitchTabView_stv_color_tint_selected,
+                ContextCompat.getColor(context, R.color.orange_primary)
+            )
+        unSelectedColor =
+            typedArray.getColor(
+                R.styleable.SwitchTabView_stv_color_tint_un_selected,
+                ContextCompat.getColor(context, R.color.grey)
+            )
+        textSelectedColor =
+            typedArray.getColor(
+                R.styleable.SwitchTabView_stv_text_color_selected,
+                ContextCompat.getColor(context, R.color.black)
+            )
+        textUnSelectedColor =
+            typedArray.getColor(
+                R.styleable.SwitchTabView_stv_text_color_un_selected,
+                ContextCompat.getColor(context, R.color.white)
+            )
+
 
         setTextTabOne(textOne)
         setTextTabTwo(textTwo)
@@ -117,13 +143,11 @@ class SwitchTabView @JvmOverloads constructor(
 
     private fun setTabSelected(button: Button?, isSelected: Boolean) {
         if (isSelected) {
-            button?.setTextColor(ContextCompat.getColor(context, R.color.black))
-            button?.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.orange_primary))
+            button?.setTextColor(textSelectedColor)
+            button?.backgroundTintList = ColorStateList.valueOf(selectedColor)
         } else {
-            button?.setTextColor(ContextCompat.getColor(context, R.color.white))
-            button?.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey))
+            button?.setTextColor(textUnSelectedColor)
+            button?.backgroundTintList = ColorStateList.valueOf(unSelectedColor)
         }
     }
 

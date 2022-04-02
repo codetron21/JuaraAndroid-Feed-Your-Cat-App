@@ -19,5 +19,8 @@ class LoadingDialog : DialogFragment(R.layout.dialog_loading) {
             )
         )
     }
+    companion object{
+        const val TAG = "LoadingDialog"
+    }
 
 }

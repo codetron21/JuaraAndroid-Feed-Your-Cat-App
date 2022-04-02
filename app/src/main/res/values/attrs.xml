@@ -3,6 +3,10 @@
     <declare-styleable name="SwitchTabView">
         <attr name="stv_text_tab_one" format="string"/>
         <attr name="stv_text_tab_two" format="string"/>
+        <attr name="stv_color_tint_selected" format="color"/>
+        <attr name="stv_color_tint_un_selected" format="color"/>
+        <attr name="stv_text_color_selected" format="color"/>
+        <attr name="stv_text_color_un_selected" format="color"/>
         <attr name="stv_tab_selected" format="enum">
             <enum name="tab_one" value="0"/>
             <enum name="tab_two" value="1"/>

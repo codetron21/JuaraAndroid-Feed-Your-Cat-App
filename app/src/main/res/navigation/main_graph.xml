@@ -8,6 +8,17 @@
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.codetron.feedyourcat.features.main.MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/nav_main_to_add_cat"
+            app:destination="@id/add_cat_activity" />
+
+    </fragment>
+
+    <activity
+        android:id="@+id/add_cat_activity"
+        android:name="com.codetron.feedyourcat.features.addcat.AddCatActivity"
+        tools:layout="@layout/activity_add_cat" />
 
 </navigation>

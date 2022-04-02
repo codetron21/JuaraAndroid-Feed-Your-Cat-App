@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_bottom_rounded"
         android:paddingVertical="4dp"
+        app:stv_color_tint_selected="@color/green_secondary"
         app:stv_tab_selected="tab_one"
         app:stv_text_tab_one="@string/tab_label_feed"
         app:stv_text_tab_two="@string/tab_label_cats" />
