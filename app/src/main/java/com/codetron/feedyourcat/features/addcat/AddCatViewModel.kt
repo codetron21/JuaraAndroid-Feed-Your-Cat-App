@@ -6,6 +6,7 @@ import com.codetron.feedyourcat.R
 import com.codetron.feedyourcat.database.CatDao
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
 import com.codetron.feedyourcat.model.Cat
+import com.codetron.feedyourcat.model.StateCat
 import com.codetron.feedyourcat.utils.Event
 import com.codetron.feedyourcat.utils.LiveEvent
 import com.codetron.feedyourcat.utils.MutableLiveEvent
@@ -15,7 +16,8 @@ import kotlinx.coroutines.withContext
 
 class AddCatViewModel(private val dao: CatDao) : ViewModel() {
 
-    private var state: StateCat = StateCat.ADD
+    var state: StateCat = StateCat.ADD
+        private set
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
@@ -50,7 +52,7 @@ class AddCatViewModel(private val dao: CatDao) : ViewModel() {
         if (result > 0) {
             _message.value = when (state) {
                 StateCat.ADD -> Event(R.string.message_success_add_data)
-                StateCat.UPDATE -> Event(R.string.message_success_add_data)
+                StateCat.UPDATE -> Event(R.string.message_success_update_data)
             }
         } else {
             _message.value = when (state) {

@@ -17,9 +17,9 @@ data class Cat(
     @ColumnInfo(name = "photo")
     val photo: String,
     @ColumnInfo(name = "birth_date")
-    val birth_date: Date
+    val birthDate: Date
 ) : Parcelable {
 
-    constructor(name: String, photo: String, dateAdded: Date) : this(0, name, photo, dateAdded)
+    constructor(name: String, photo: String, birthDate: Date) : this(0, name, photo, birthDate)
 
 }

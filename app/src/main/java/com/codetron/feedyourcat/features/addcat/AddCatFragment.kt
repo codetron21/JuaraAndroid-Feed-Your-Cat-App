@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat.common.dialog.DateDialog
 import com.codetron.feedyourcat.common.dialog.LoadingDialog
 import com.codetron.feedyourcat.databinding.FragmentAddCatBinding
 import com.codetron.feedyourcat.model.Cat
+import com.codetron.feedyourcat.model.StateCat
+import com.codetron.feedyourcat.utils.formatString
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
@@ -25,10 +30,12 @@ class AddCatFragment : Fragment() {
     private val viewModel by viewModels<AddCatViewModel> { AddCatViewModel.factory(requireContext()) }
 
     private var snackbar: Snackbar? = null
+    private var dateDialog: DateDialog? = null
     private var alertDialog: AlertDialog? = null
     private var loadingDialog: LoadingDialog? = null
 
     private var id: Long = 0L
+    private var date: Date? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +49,10 @@ class AddCatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            viewModel.onButtonExitClicked()
+        }
+
         initState()
         observeViewModel()
         buttonListeners()
@@ -50,6 +61,7 @@ class AddCatFragment : Fragment() {
     override fun onDestroyView() {
         loadingDialog?.dismiss()
         alertDialog?.dismiss()
+        dateDialog?.dismiss()
         snackbar?.dismiss()
         _binding = null
         super.onDestroyView()
@@ -74,8 +86,10 @@ class AddCatFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.data.observe(viewLifecycleOwner) { data ->
             if (data != null) {
-                binding?.inputCatName?.setText(data.name)
+                date = data.birthDate
 
+                binding?.inputCatName?.setText(data.name)
+                binding?.buttonBirthDate?.text = data.birthDate.formatString()
                 binding?.imageCat?.load(data.photo) {
                     crossfade(true)
                     placeholder(R.color.green_light_secondary)
@@ -119,7 +133,7 @@ class AddCatFragment : Fragment() {
             alertDialog = AlertDialog.Builder(requireContext())
                 .setMessage(R.string.message_exit)
                 .setPositiveButton(R.string.action_yes) { di, _ ->
-                    requireActivity().onBackPressed()
+                    requireActivity().finish()
                     di.dismiss()
                 }
                 .setNegativeButton(R.string.action_no) { di, _ ->
@@ -150,7 +164,7 @@ class AddCatFragment : Fragment() {
                 .setMessage(R.string.message_delete_data)
                 .setPositiveButton(R.string.action_yes) { di, _ ->
                     viewModel.deleteDataById(id)
-                    requireActivity().onBackPressed()
+                    requireActivity().finish()
                     di.dismiss()
                 }
                 .setNegativeButton(R.string.action_no) { di, _ ->
@@ -162,16 +176,12 @@ class AddCatFragment : Fragment() {
     }
 
     private fun buttonListeners() {
-        binding?.buttonBirthDate?.setOnClickListener {
+        binding?.imageCat?.setOnClickListener {
 
         }
 
         binding?.toolbar?.setNavigationOnClickListener {
-            viewModel.onButtonExitClicked()
-        }
-
-        binding?.imageCat?.setOnClickListener {
-
+            requireActivity().onBackPressed()
         }
 
         binding?.buttonDelete?.setOnClickListener {
@@ -182,13 +192,28 @@ class AddCatFragment : Fragment() {
             val name = binding?.inputCatName?.text?.toString()?.trim()
 
             if (name.isNullOrEmpty()) {
-                snackbar = Snackbar.make(it, R.string.message_input_error, Snackbar.LENGTH_LONG)
+                snackbar = Snackbar.make(it, R.string.message_name_error, Snackbar.LENGTH_LONG)
                 snackbar?.show()
                 return@setOnClickListener
             }
 
-            val cat = Cat(name, "", Date())
+            if (date == null) {
+                snackbar =
+                    Snackbar.make(it, R.string.message_birth_date_error, Snackbar.LENGTH_LONG)
+                snackbar?.show()
+                return@setOnClickListener
+            }
+
+            val cat = if (id > 0) {
+                Cat(id, name, "", date!!)
+            } else {
+                Cat(name, "", date!!)
+            }
+
             viewModel.upsertData(cat)
+            if (viewModel.state == StateCat.UPDATE) {
+                viewModel.onCancelEditClicked()
+            }
         }
 
         binding?.toolbar?.setOnMenuItemClickListener { menu ->
@@ -198,6 +223,59 @@ class AddCatFragment : Fragment() {
             false
         }
 
+        binding?.buttonBirthDate?.setOnClickListener {
+            dateDialog =
+                when {
+                    date != null -> {
+                        val cal = Calendar.getInstance()
+                        cal.time = date!!
+                        val defaultYear = cal[Calendar.YEAR]
+                        val defaultMonth = cal[Calendar.MONTH]
+                        val defaultDay = cal[Calendar.DAY_OF_MONTH]
+
+                        DateDialog(defaultYear, defaultMonth, defaultDay) { year, month, day ->
+                            (it as Button).text =
+                                getString(R.string.birth_format, day, month + 1, year)
+                            val c = Calendar.getInstance()
+                            c[Calendar.YEAR] = year
+                            c[Calendar.MONTH] = month
+                            c[Calendar.DAY_OF_MONTH] = day
+                            date = c.time
+                        }
+                    }
+                    viewModel.data.value != null -> {
+                        val cal = Calendar.getInstance()
+                        val birthDate = viewModel.data.value!!
+                        cal.time = birthDate.birthDate
+                        val defaultYear = cal[Calendar.YEAR]
+                        val defaultMonth = cal[Calendar.MONTH]
+                        val defaultDay = cal[Calendar.DAY_OF_MONTH]
+
+                        DateDialog(defaultYear, defaultMonth, defaultDay) { year, month, day ->
+                            (it as Button).text =
+                                getString(R.string.birth_format, day, month + 1, year)
+                            val c = Calendar.getInstance()
+                            c[Calendar.YEAR] = year
+                            c[Calendar.MONTH] = month
+                            c[Calendar.DAY_OF_MONTH] = day
+                            date = c.time
+                        }
+                    }
+                    else -> {
+                        DateDialog { year, month, day ->
+                            (it as Button).text =
+                                getString(R.string.birth_format, day, month + 1, year)
+                            val c = Calendar.getInstance()
+                            c[Calendar.YEAR] = year
+                            c[Calendar.MONTH] = month
+                            c[Calendar.DAY_OF_MONTH] = day
+                            date = c.time
+                        }
+                    }
+                }
+
+            dateDialog?.show(parentFragmentManager, DateDialog.TAG)
+        }
     }
 
 }

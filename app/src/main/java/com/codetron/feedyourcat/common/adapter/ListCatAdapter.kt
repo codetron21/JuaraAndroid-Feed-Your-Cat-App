@@ -9,6 +9,7 @@ import coil.load
 import com.codetron.feedyourcat.R
 import com.codetron.feedyourcat.databinding.ItemCatBinding
 import com.codetron.feedyourcat.model.Cat
+import com.codetron.feedyourcat.utils.formatString
 
 typealias CatClickListener = (Long) -> Unit
 
@@ -33,6 +34,7 @@ class ListCatAdapter(
 
         fun bind(data: Cat) {
             binding.textName.text = data.name
+            binding.textBrihtDate.text = data.birthDate.formatString()
             binding.imagePhoto.load(data.photo) {
                 crossfade(true)
                 placeholder(R.color.green_light_secondary)

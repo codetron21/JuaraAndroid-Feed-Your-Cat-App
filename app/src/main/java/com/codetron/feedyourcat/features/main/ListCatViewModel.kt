@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.codetron.feedyourcat.database.CatDao
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
 import com.codetron.feedyourcat.model.Cat
+import com.codetron.feedyourcat.model.SortCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,10 +20,51 @@ class ListCatViewModel(
     private val _data = MutableLiveData<List<Cat>>()
     val data: LiveData<List<Cat>> get() = _data
 
-    fun getAllCats() = viewModelScope.launch {
+    fun getAll(id: Long) {
+        when (id) {
+            SortCategory.NEWEST.id -> {
+                getAllCatsSortNewest()
+            }
+            SortCategory.LATEST.id -> {
+                getAllCatsSortLatest()
+            }
+            SortCategory.NAME.id -> {
+                getAllCatsSortName()
+            }
+            else -> {
+                getAllCatsSortNewest()
+            }
+        }
+    }
+
+    fun getAllCatsSortNewest() = viewModelScope.launch {
         _loading.value = true
         withContext(Dispatchers.IO) {
-            dao.getAll().collect {
+            dao.getAllSortByNewest().collect {
+                withContext(Dispatchers.Main) {
+                    _data.value = it
+                    _loading.value = false
+                }
+            }
+        }
+    }
+
+    fun getAllCatsSortLatest() = viewModelScope.launch {
+        _loading.value = true
+        withContext(Dispatchers.IO) {
+            dao.getAllSortByLatest().collect {
+                withContext(Dispatchers.Main) {
+                    _data.value = it
+                    _loading.value = false
+                }
+            }
+        }
+    }
+
+    fun getAllCatsSortName() = viewModelScope.launch {
+        _loading.value = true
+        withContext(Dispatchers.IO) {
+            dao.getAllSortByName().collect {
                 withContext(Dispatchers.Main) {
                     _data.value = it
                     _loading.value = false

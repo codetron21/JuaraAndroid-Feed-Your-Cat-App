@@ -8,11 +8,12 @@
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/drawable/ic_empty_cats.xml" value="0.169" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/drawable/ic_empty_feed.xml" value="0.169" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/drawable/ic_search.xml" value="0.1655" />
+        <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/drawable/ic_time.xml" value="0.127" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/activity_add_cat.xml" value="0.20416666666666666" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/activity_add_feed_cat.xml" value="0.20416666666666666" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
-        <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/fragment_add_cat.xml" value="0.25" />
+        <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/fragment_add_cat.xml" value="0.21" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/fragment_add_feed_cat.xml" value="0.20416666666666666" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/fragment_add_voice_cat.xml" value="0.20416666666666666" />
         <entry key="..\:/latihan/android/feed-your-cat/app/src/main/res/layout/fragment_list_cat.xml" value="0.20416666666666666" />

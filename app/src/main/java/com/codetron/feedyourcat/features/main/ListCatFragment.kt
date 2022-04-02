@@ -49,10 +49,6 @@ class ListCatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            viewModel.getAllCats()
-        }
-
         setupView()
         observeViewModel()
 
@@ -82,6 +78,10 @@ class ListCatFragment : Fragment() {
 
         viewModel.loading.observe(viewLifecycleOwner) { loading ->
             binding?.progressBar?.isVisible = loading
+        }
+
+        sharedViewModel.sortIdCats.observe(viewLifecycleOwner) { id ->
+            viewModel.getAll(id)
         }
 
         sharedViewModel.textSortCats.observe(viewLifecycleOwner) { resString ->

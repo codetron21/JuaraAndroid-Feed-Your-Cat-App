@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -37,15 +38,23 @@
         android:layout_width="match_parent"
         android:layout_height="16dp" />
 
-    <EditText
-        android:id="@+id/input_cat_name"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
         android:hint="@string/hint_cat_name"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:textAlignment="center" />
+        app:boxStrokeWidthFocused="1dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_cat_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Space
         android:layout_width="match_parent"
@@ -55,15 +64,18 @@
         android:id="@+id/button_birth_date"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
-        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:minHeight="70dp"
         android:text="@string/hint_cat_birthdate"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:strokeColor="@color/mtrl_outlined_stroke_color"
+        tools:ignore="PrivateResource" />
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="8dp" />
 
     <Button
         android:id="@+id/button_upsert"
