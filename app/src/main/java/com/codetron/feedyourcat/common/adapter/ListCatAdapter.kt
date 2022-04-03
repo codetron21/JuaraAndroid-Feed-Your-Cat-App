@@ -37,7 +37,7 @@ class ListCatAdapter(
             binding.textBrihtDate.text = data.birthDate.formatString()
             binding.imagePhoto.load(data.photo) {
                 crossfade(true)
-                placeholder(R.color.green_light_secondary)
+                placeholder(R.color.green_secondary)
             }
             binding.card.setOnClickListener {
                 listener(data.id)

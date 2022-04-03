@@ -18,9 +18,10 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_photo"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:background="@color/green_light_secondary"
+            android:background="@color/green_secondary"
             android:contentDescription="@string/cd_image"
             app:shapeAppearanceOverlay="@style/MediumComponentStyle" />
 

@@ -1,6 +1,7 @@
 package com.codetron.feedyourcat.features.addcat
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.*
 import com.codetron.feedyourcat.R
 import com.codetron.feedyourcat.database.CatDao
@@ -13,6 +14,7 @@ import com.codetron.feedyourcat.utils.MutableLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class AddCatViewModel(private val dao: CatDao) : ViewModel() {
 
@@ -39,6 +41,20 @@ class AddCatViewModel(private val dao: CatDao) : ViewModel() {
 
     private val _data = MutableLiveData<Cat?>()
     val data: LiveData<Cat?> get() = _data
+
+    private val _date = MutableLiveData<Date?>(null)
+    val date: LiveData<Date?> get() = _date
+
+    private val _imageUri = MutableLiveData<Uri?>(null)
+    val imageUri: LiveData<Uri?> get() = _imageUri
+
+    fun setDate(date: Date?) {
+        _date.value = date
+    }
+
+    fun setImageUri(imageUri: Uri?) {
+        _imageUri.value = imageUri
+    }
 
     fun getDataById(id: Long) = viewModelScope.launch {
         _loading.value = true

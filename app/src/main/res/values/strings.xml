@@ -20,6 +20,7 @@
     <string name="message_cancel_edit">Are you sure you want to cancel edit data?</string>
     <string name="message_name_error">Cat name can\'t be empty</string>
     <string name="message_birth_date_error">Cat birth date can\'t be null</string>
+    <string name="message_image_error">Cat image can\'t be null</string>
     <string name="message_empty_data">Data is empty!</string>
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>

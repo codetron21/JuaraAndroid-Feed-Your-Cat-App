@@ -1,12 +1,14 @@
 package com.codetron.feedyourcat.features.addcat
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.addCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,6 +21,7 @@ import com.codetron.feedyourcat.databinding.FragmentAddCatBinding
 import com.codetron.feedyourcat.model.Cat
 import com.codetron.feedyourcat.model.StateCat
 import com.codetron.feedyourcat.utils.formatString
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
@@ -35,7 +38,30 @@ class AddCatFragment : Fragment() {
     private var loadingDialog: LoadingDialog? = null
 
     private var id: Long = 0L
-    private var date: Date? = null
+
+    private val dateCallback = { year: Int, month: Int, day: Int ->
+        val c = Calendar.getInstance()
+        c[Calendar.YEAR] = year
+        c[Calendar.MONTH] = month
+        c[Calendar.DAY_OF_MONTH] = day
+        viewModel.setDate(c.time)
+    }
+
+    private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            if (resultCode == ImagePicker.RESULT_ERROR) {
+                return@registerForActivityResult
+            }
+
+            if (resultCode == Activity.RESULT_OK) {
+                val fileUri = data?.data!!
+
+                viewModel.setImageUri(fileUri)
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,15 +110,35 @@ class AddCatFragment : Fragment() {
     }
 
     private fun observeViewModel() {
+        viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
+            if (uri != null) {
+                binding?.imageCat?.load(uri) {
+                    crossfade(true)
+                    placeholder(R.color.green_secondary)
+                }
+            }
+        }
+
+        viewModel.date.observe(viewLifecycleOwner) {
+            val date = it ?: return@observe
+            val dateInt = getDateIntFromDate(date)
+            binding?.buttonBirthDate?.text = getString(
+                R.string.birth_format,
+                dateInt[Calendar.DAY_OF_MONTH],
+                dateInt[Calendar.MONTH]?.plus(1),
+                dateInt[Calendar.YEAR],
+            )
+        }
+
         viewModel.data.observe(viewLifecycleOwner) { data ->
             if (data != null) {
-                date = data.birthDate
+                viewModel.setDate(data.birthDate)
 
                 binding?.inputCatName?.setText(data.name)
                 binding?.buttonBirthDate?.text = data.birthDate.formatString()
                 binding?.imageCat?.load(data.photo) {
                     crossfade(true)
-                    placeholder(R.color.green_light_secondary)
+                    placeholder(R.color.green_secondary)
                 }
             }
         }
@@ -120,6 +166,7 @@ class AddCatFragment : Fragment() {
             binding?.buttonUpsert?.isVisible = edit
             binding?.inputCatName?.isEnabled = edit
             binding?.buttonBirthDate?.isEnabled = edit
+            binding?.imageCat?.isEnabled = edit
 
             if (edit) {
                 menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_close)
@@ -177,7 +224,13 @@ class AddCatFragment : Fragment() {
 
     private fun buttonListeners() {
         binding?.imageCat?.setOnClickListener {
-
+            ImagePicker.with(this)
+                .crop()
+                .compress(1024)
+                .maxResultSize(1080, 1080)
+                .createIntent { intent ->
+                    startForProfileImageResult.launch(intent)
+                }
         }
 
         binding?.toolbar?.setNavigationOnClickListener {
@@ -190,6 +243,8 @@ class AddCatFragment : Fragment() {
 
         binding?.buttonUpsert?.setOnClickListener {
             val name = binding?.inputCatName?.text?.toString()?.trim()
+            val date = viewModel.date.value
+            val imageUri = viewModel.imageUri.value
 
             if (name.isNullOrEmpty()) {
                 snackbar = Snackbar.make(it, R.string.message_name_error, Snackbar.LENGTH_LONG)
@@ -204,10 +259,17 @@ class AddCatFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            if (imageUri == null) {
+                snackbar =
+                    Snackbar.make(it, R.string.message_image_error, Snackbar.LENGTH_LONG)
+                snackbar?.show()
+                return@setOnClickListener
+            }
+
             val cat = if (id > 0) {
-                Cat(id, name, "", date!!)
+                Cat(id, name, imageUri, date)
             } else {
-                Cat(name, "", date!!)
+                Cat(name, imageUri, date)
             }
 
             viewModel.upsertData(cat)
@@ -224,58 +286,45 @@ class AddCatFragment : Fragment() {
         }
 
         binding?.buttonBirthDate?.setOnClickListener {
-            dateDialog =
-                when {
-                    date != null -> {
-                        val cal = Calendar.getInstance()
-                        cal.time = date!!
-                        val defaultYear = cal[Calendar.YEAR]
-                        val defaultMonth = cal[Calendar.MONTH]
-                        val defaultDay = cal[Calendar.DAY_OF_MONTH]
-
-                        DateDialog(defaultYear, defaultMonth, defaultDay) { year, month, day ->
-                            (it as Button).text =
-                                getString(R.string.birth_format, day, month + 1, year)
-                            val c = Calendar.getInstance()
-                            c[Calendar.YEAR] = year
-                            c[Calendar.MONTH] = month
-                            c[Calendar.DAY_OF_MONTH] = day
-                            date = c.time
-                        }
-                    }
-                    viewModel.data.value != null -> {
-                        val cal = Calendar.getInstance()
-                        val birthDate = viewModel.data.value!!
-                        cal.time = birthDate.birthDate
-                        val defaultYear = cal[Calendar.YEAR]
-                        val defaultMonth = cal[Calendar.MONTH]
-                        val defaultDay = cal[Calendar.DAY_OF_MONTH]
-
-                        DateDialog(defaultYear, defaultMonth, defaultDay) { year, month, day ->
-                            (it as Button).text =
-                                getString(R.string.birth_format, day, month + 1, year)
-                            val c = Calendar.getInstance()
-                            c[Calendar.YEAR] = year
-                            c[Calendar.MONTH] = month
-                            c[Calendar.DAY_OF_MONTH] = day
-                            date = c.time
-                        }
-                    }
-                    else -> {
-                        DateDialog { year, month, day ->
-                            (it as Button).text =
-                                getString(R.string.birth_format, day, month + 1, year)
-                            val c = Calendar.getInstance()
-                            c[Calendar.YEAR] = year
-                            c[Calendar.MONTH] = month
-                            c[Calendar.DAY_OF_MONTH] = day
-                            date = c.time
-                        }
-                    }
+            dateDialog = when {
+                viewModel.date.value != null -> {
+                    val date = viewModel.date.value
+                    val dateInt = getDateIntFromDate(date!!)
+                    DateDialog(
+                        dateInt[Calendar.YEAR],
+                        dateInt[Calendar.MONTH],
+                        dateInt[Calendar.DAY_OF_MONTH],
+                        dateCallback
+                    )
                 }
+                viewModel.data.value != null -> {
+                    val data = viewModel.data.value
+                    val dateInt = getDateIntFromDate(data!!.birthDate)
+                    DateDialog(
+                        dateInt[Calendar.YEAR],
+                        dateInt[Calendar.MONTH],
+                        dateInt[Calendar.DAY_OF_MONTH],
+                        dateCallback
+                    )
+                }
+                else -> DateDialog(result = dateCallback)
+            }
 
             dateDialog?.show(parentFragmentManager, DateDialog.TAG)
         }
+    }
+
+    private fun getDateIntFromDate(date: Date): Map<Int, Int> {
+        val cal = Calendar.getInstance()
+        cal.time = date
+        val defaultYear = cal[Calendar.YEAR]
+        val defaultMonth = cal[Calendar.MONTH]
+        val defaultDay = cal[Calendar.DAY_OF_MONTH]
+        return mapOf(
+            Calendar.YEAR to defaultYear,
+            Calendar.MONTH to defaultMonth,
+            Calendar.DAY_OF_MONTH to defaultDay
+        )
     }
 
 }
