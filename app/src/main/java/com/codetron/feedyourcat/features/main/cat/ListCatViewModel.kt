@@ -1,8 +1,8 @@
-package com.codetron.feedyourcat.features.main
+package com.codetron.feedyourcat.features.main.cat
 
 import android.content.Context
 import androidx.lifecycle.*
-import com.codetron.feedyourcat.database.CatDao
+import com.codetron.feedyourcat.database.dao.CatDao
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
 import com.codetron.feedyourcat.model.Cat
 import com.codetron.feedyourcat.model.SortCategory

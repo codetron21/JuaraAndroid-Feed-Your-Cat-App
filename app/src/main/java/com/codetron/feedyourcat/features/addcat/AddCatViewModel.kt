@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
 import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.database.CatDao
+import com.codetron.feedyourcat.database.dao.CatDao
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
 import com.codetron.feedyourcat.model.Cat
 import com.codetron.feedyourcat.model.StateCat

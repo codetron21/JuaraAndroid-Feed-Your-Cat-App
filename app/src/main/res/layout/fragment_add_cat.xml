@@ -22,78 +22,90 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <Space
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/image_cat"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/bg_choose_image"
-        android:contentDescription="@string/cd_image"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/MediumComponentStyle" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="16dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_cat_name"
-        app:boxStrokeWidthFocused="1dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_cat_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:gravity="center"
-            android:importantForAutofill="no"
-            android:inputType="text" />
+            android:orientation="vertical"
+            android:paddingVertical="40dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_cat"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_choose_image"
+                android:contentDescription="@string/cd_image"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/MediumComponentStyle" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="4dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
-    <Button
-        android:id="@+id/button_birth_date"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:minHeight="70dp"
-        android:text="@string/hint_cat_birthdate"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:strokeColor="@color/mtrl_outlined_stroke_color"
-        tools:ignore="PrivateResource" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_cat_name"
+                app:boxStrokeWidthFocused="1dp">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="8dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_cat_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="center"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
 
-    <Button
-        android:id="@+id/button_upsert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:text="@string/text_save" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/button_delete"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/text_delete"
-        android:visibility="gone" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4dp" />
+
+            <Button
+                android:id="@+id/button_birth_date"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:minHeight="70dp"
+                android:text="@string/hint_cat_birthdate"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:strokeColor="@color/mtrl_outlined_stroke_color"
+                tools:ignore="PrivateResource" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <Button
+                android:id="@+id/button_upsert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/text_save" />
+
+            <Button
+                android:id="@+id/button_delete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/text_delete"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

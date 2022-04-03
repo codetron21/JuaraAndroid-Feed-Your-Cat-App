@@ -1,4 +1,4 @@
-package com.codetron.feedyourcat.features.main
+package com.codetron.feedyourcat.features.main.cat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +16,7 @@ import com.codetron.feedyourcat.R
 import com.codetron.feedyourcat.common.adapter.ListCatAdapter
 import com.codetron.feedyourcat.databinding.FragmentListMainBinding
 import com.codetron.feedyourcat.features.addcat.AddCatActivity
+import com.codetron.feedyourcat.features.main.MainViewModel
 
 class ListCatFragment : Fragment() {
 

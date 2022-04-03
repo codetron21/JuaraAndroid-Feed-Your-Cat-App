@@ -1,4 +1,4 @@
-package com.codetron.feedyourcat.database
+package com.codetron.feedyourcat.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -7,6 +7,7 @@
     <string name="sort_newest">Newest</string>
     <string name="sort_latest">Latest</string>
     <string name="add_cat_title">Cat</string>
+    <string name="add_feed_title">Feed</string>
     <string name="text_save">Save</string>
     <string name="text_update">Update</string>
     <string name="text_delete">Delete</string>
@@ -25,9 +26,14 @@
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
     <string name="birth_format">%d/%d/%d</string>
+    <string name="hint_cat_name">cat name</string>
+    <string name="hint_cat_birthdate">cat birthdate</string>
+    <string name="label_list_cats">Cats</string>
+    <string name="label_feed_time">Feed time</string>
+    <string name="label_time">Time</string>
+    <string name="label_add">Add</string>
 
     <string name="cd_button_add">Button add</string>
     <string name="cd_image">Image</string>
-    <string name="hint_cat_name">cat name</string>
-    <string name="hint_cat_birthdate">cat birthdate</string>
+    <string name="label_submit">submit</string>
 </resources>

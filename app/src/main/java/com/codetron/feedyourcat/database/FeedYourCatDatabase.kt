@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.codetron.feedyourcat.database.dao.CatDao
 import com.codetron.feedyourcat.model.Cat
 
 @Database(entities = [Cat::class], exportSchema = false, version = 1)

@@ -14,11 +14,20 @@
             android:id="@+id/nav_main_to_add_cat"
             app:destination="@id/add_cat_activity" />
 
+        <action
+            android:id="@+id/nav_main_to_add_feed"
+            app:destination="@id/add_feed_activity" />
+
     </fragment>
 
     <activity
         android:id="@+id/add_cat_activity"
         android:name="com.codetron.feedyourcat.features.addcat.AddCatActivity"
         tools:layout="@layout/activity_add_cat" />
+
+    <activity
+        android:id="@+id/add_feed_activity"
+        android:name="com.codetron.feedyourcat.features.addfeed.AddFeedActivity"
+        tools:layout="@layout/activity_add_feed" />
 
 </navigation>

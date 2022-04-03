@@ -2,8 +2,8 @@ package com.codetron.feedyourcat.common.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.codetron.feedyourcat.features.main.ListCatFragment
-import com.codetron.feedyourcat.features.main.ListFeedFragment
+import com.codetron.feedyourcat.features.main.cat.ListCatFragment
+import com.codetron.feedyourcat.features.main.feed.ListFeedFragment
 
 class PagerMainAdapter(f: Fragment) : FragmentStateAdapter(f) {
 
