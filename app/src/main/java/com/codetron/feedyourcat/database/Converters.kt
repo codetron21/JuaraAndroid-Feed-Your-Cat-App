@@ -26,4 +26,14 @@ class Converters {
         return Uri.parse(str)
     }
 
+    @TypeConverter
+    fun timesToString(times: List<Long>): String {
+        return times.joinToString(",")
+    }
+
+    @TypeConverter
+    fun stringToTimes(str: String): List<Long> {
+        return str.split(",").map(String::toLong)
+    }
+
 }

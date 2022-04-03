@@ -56,6 +56,10 @@ class ListFeedFragment : Fragment() {
     }
 
     private fun observeViewModel() {
+        viewModel.showAddButton.observe(viewLifecycleOwner) {
+            binding?.buttonAdd?.isVisible = it
+        }
+
         viewModel.loading.observe(viewLifecycleOwner) { loading ->
             binding?.progressBar?.isVisible = loading
         }

@@ -6,13 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.codetron.feedyourcat.database.dao.CatDao
+import com.codetron.feedyourcat.database.dao.FeedCatDao
+import com.codetron.feedyourcat.database.dao.FeedDao
 import com.codetron.feedyourcat.model.Cat
+import com.codetron.feedyourcat.model.Feed
 
-@Database(entities = [Cat::class], exportSchema = false, version = 1)
+@Database(entities = [Cat::class, Feed::class], exportSchema = false, version = 1)
 @TypeConverters(value = [Converters::class])
 abstract class FeedYourCatDatabase : RoomDatabase() {
 
     abstract fun catDao(): CatDao
+    abstract fun feedDao(): FeedDao
+    abstract fun feedCatDao(): FeedCatDao
 
     companion object {
         @Volatile
