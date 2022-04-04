@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.codetron.feedyourcat.R
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
-import com.codetron.feedyourcat.database.dao.CatDao
 import com.codetron.feedyourcat.database.dao.FeedCatDao
 import com.codetron.feedyourcat.database.dao.FeedDao
 import com.codetron.feedyourcat.model.CatSelectedItem
@@ -15,7 +14,6 @@ import com.codetron.feedyourcat.utils.Event
 import com.codetron.feedyourcat.utils.LiveEvent
 import com.codetron.feedyourcat.utils.MutableLiveEvent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,7 +21,6 @@ private const val TAG = "AddFeedViewModel"
 
 class AddFeedViewModel(
     private val feedDao: FeedDao,
-    private val catDao: CatDao,
     private val feedCatDao: FeedCatDao
 ) : ViewModel() {
 
@@ -52,16 +49,10 @@ class AddFeedViewModel(
     fun getAllCat() = viewModelScope.launch {
         _loading.value = true
         withContext(Dispatchers.IO) {
-            val cats = catDao.getAllSortByName()
-            val feedCat = feedCatDao.getAllCatAvailable()
-
-            combine(cats, feedCat) { c, fc ->
-                Log.d(TAG, "LIST FC: $fc")
-                fc.map { it.cat }.ifEmpty { c }
-            }.collect { list ->
-                Log.d(TAG, "LIST: $list")
+            feedCatDao.getAllCatAvailable().collect { list ->
                 withContext(Dispatchers.Main) {
-                    _listCats.value = list.filterNotNull().map { cat ->
+                    Log.d(TAG, "$list")
+                    _listCats.value = list.map { cat ->
                         CatSelectedItem(cat, false)
                     }
                     _loading.value = false
@@ -132,7 +123,7 @@ class AddFeedViewModel(
         fun factory(context: Context) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 val db = FeedYourCatDatabase.getInstance(context)
-                return AddFeedViewModel(db.feedDao(), db.catDao(), db.feedCatDao()) as T
+                return AddFeedViewModel(db.feedDao(), db.feedCatDao()) as T
             }
         }
     }

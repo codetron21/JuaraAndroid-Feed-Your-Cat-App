@@ -11,6 +11,7 @@ import java.util.*
 @Parcelize
 @Entity(tableName = "Cat")
 data class Cat(
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "name")

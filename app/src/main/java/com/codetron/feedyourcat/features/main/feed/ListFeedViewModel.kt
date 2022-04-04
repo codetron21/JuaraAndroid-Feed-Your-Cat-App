@@ -3,16 +3,13 @@ package com.codetron.feedyourcat.features.main.feed
 import android.content.Context
 import androidx.lifecycle.*
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
-import com.codetron.feedyourcat.database.dao.CatDao
 import com.codetron.feedyourcat.database.dao.FeedCatDao
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ListFeedViewModel(
     private val feedCatDao: FeedCatDao,
-    private val catDao: CatDao
 ) : ViewModel() {
 
     private val _loading = MutableLiveData<Boolean>()
@@ -27,12 +24,7 @@ class ListFeedViewModel(
 
     fun getIsCatAvailable() = viewModelScope.launch {
         withContext(Dispatchers.IO) {
-            val cats = catDao.getAllSortByName()
-            val feedCat = feedCatDao.getAllCatAvailable()
-
-            combine(cats, feedCat) { c, fc ->
-                fc.ifEmpty { c }
-            }.collect {
+            feedCatDao.getAllCatAvailable().collect {
                 withContext(Dispatchers.Main) {
                     _showAddButton.value = it.isNotEmpty()
                 }
@@ -47,7 +39,6 @@ class ListFeedViewModel(
                 val db = FeedYourCatDatabase.getInstance(context)
                 return ListFeedViewModel(
                     db.feedCatDao(),
-                    db.catDao()
                 ) as T
             }
         }
