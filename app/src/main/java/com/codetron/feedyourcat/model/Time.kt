@@ -2,5 +2,5 @@ package com.codetron.feedyourcat.model
 
 data class Time(
     val id: Long,
-    val time: Long
+    val time: Int
 )

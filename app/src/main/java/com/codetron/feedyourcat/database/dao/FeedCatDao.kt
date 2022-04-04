@@ -21,14 +21,8 @@ interface FeedCatDao {
     @Query("SELECT * FROM Cat ORDER BY Cat.birth_date DESC")
     fun getAllSortByLatest(): Flow<List<FeedCat>>
 
-    @Query("SELECT COUNT(*) > 0 FROM Feed")
-    fun isFeedAvailable(): Flow<Boolean>
-
-    @Query("SELECT COUNT(*) > 0 FROM Cat")
-    fun isCatAvailable(): Flow<Boolean>
-
     @Transaction
-    @Query("SELECT COUNT(*) > 0 FROM Cat JOIN Feed ON Feed.cat_id <> Cat.id")
-    fun isFeedCatAvailable(): Flow<Boolean>
+    @Query("SELECT * FROM Cat c INNER JOIN Feed f ON c.id <> f.cat_id")
+    fun getAllCatAvailable(): Flow<List<FeedCat>>
 
 }

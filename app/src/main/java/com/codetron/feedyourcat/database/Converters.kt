@@ -27,13 +27,13 @@ class Converters {
     }
 
     @TypeConverter
-    fun timesToString(times: List<Long>): String {
+    fun timesToString(times: List<Int>): String {
         return times.joinToString(",")
     }
 
     @TypeConverter
-    fun stringToTimes(str: String): List<Long> {
-        return str.split(",").map(String::toLong)
+    fun stringToTimes(str: String): List<Int> {
+        return str.split(",").map(String::toInt)
     }
 
 }

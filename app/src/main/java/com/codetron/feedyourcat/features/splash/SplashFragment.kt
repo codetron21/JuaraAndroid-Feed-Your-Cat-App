@@ -33,6 +33,7 @@ class SplashFragment : Fragment() {
         lifecycleScope.launch {
             delay(SPLASH_DELAY)
             findNavController().navigate(R.id.nav_splash_to_home)
+            requireActivity().finish()
         }
 
     }

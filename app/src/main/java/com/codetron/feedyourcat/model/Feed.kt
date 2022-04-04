@@ -10,7 +10,9 @@ data class Feed(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "times")
-    val times: List<Long>,
+    val times: List<Int>,
     @ColumnInfo(name = "cat_id")
     val catId: Long
-)
+) {
+    constructor(times: List<Int>, catId: Long) : this(0, times, catId)
+}

@@ -9,9 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.databinding.ItemCatBinding
+import com.codetron.feedyourcat.databinding.ItemCatSelectedBinding
 import com.codetron.feedyourcat.model.CatSelectedItem
-import com.codetron.feedyourcat.utils.formatString
 
 typealias CatItemSelectedListener = (Long) -> Unit
 
@@ -30,7 +29,7 @@ class ListCatSelectedAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatSelectedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemCatBinding.inflate(inflater, parent, false)
+        val binding = ItemCatSelectedBinding.inflate(inflater, parent, false)
         return CatSelectedViewHolder(binding, listener)
     }
 
@@ -43,7 +42,7 @@ class ListCatSelectedAdapter(
     }
 
     inner class CatSelectedViewHolder(
-        private val binding: ItemCatBinding,
+        private val binding: ItemCatSelectedBinding,
         private val listener: CatItemSelectedListener? = null
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -52,7 +51,6 @@ class ListCatSelectedAdapter(
 
             setItemSelected(binding.root.context, data.isSelected)
             binding.textName.text = catData.name
-            binding.textBrihtDate.text = catData.birthDate.formatString()
             binding.imagePhoto.load(catData.photo) {
                 crossfade(true)
                 placeholder(R.color.green_secondary)

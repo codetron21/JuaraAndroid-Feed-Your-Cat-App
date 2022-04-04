@@ -7,17 +7,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.codetron.feedyourcat.databinding.ItemFeedTimeBinding
 import com.codetron.feedyourcat.model.Time
+import com.codetron.feedyourcat.utils.toHourMinute
 
 typealias TimeClickListener = (Long) -> Unit
 
 class ListTimeAdapter(
-    private val listener: TimeClickListener? = null
+    private val removeClickListener: TimeClickListener? = null
 ) : ListAdapter<Time, ListTimeAdapter.TimeViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemFeedTimeBinding.inflate(inflater, parent, false)
-        return TimeViewHolder(binding, listener)
+        return TimeViewHolder(binding, removeClickListener)
     }
 
     override fun onBindViewHolder(holder: TimeViewHolder, position: Int) {
@@ -26,12 +27,14 @@ class ListTimeAdapter(
 
     inner class TimeViewHolder(
         private val binding: ItemFeedTimeBinding,
-        private val listener: TimeClickListener? = null
+        private val removeClickListener: TimeClickListener? = null
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: Time) {
-            binding.card.setOnClickListener {
-                listener?.invoke(data.id)
+            binding.textTime.text = data.time.toHourMinute()
+
+            binding.buttonDelete.setOnClickListener {
+                removeClickListener?.invoke(data.id)
             }
         }
 

@@ -4,34 +4,50 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?selectableItemBackground">
+    android:layout_marginVertical="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"
-        android:paddingVertical="14dp">
+        android:paddingVertical="8dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="0.1"
             android:text="@string/label_time" />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="2dp"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="8dp"
             app:dividerColor="@color/green_secondary" />
 
         <TextView
             android:id="@+id/text_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
             android:text="@string/label_time" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            app:dividerColor="@color/green_secondary" />
+
+        <ImageButton
+            android:id="@+id/button_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_image"
+            android:padding="4dp"
+            android:src="@drawable/ic_close"
+            app:tint="@color/green_dark_secondary" />
 
     </LinearLayout>
 
