@@ -2,11 +2,12 @@ package com.codetron.feedyourcat.features.main.cat
 
 import android.content.Context
 import androidx.lifecycle.*
-import com.codetron.feedyourcat.database.dao.CatDao
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
+import com.codetron.feedyourcat.database.dao.CatDao
 import com.codetron.feedyourcat.model.Cat
 import com.codetron.feedyourcat.model.SortCategory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,50 +24,29 @@ class ListCatViewModel(
     fun getAll(id: Long) {
         when (id) {
             SortCategory.NEWEST.id -> {
-                getAllCatsSortNewest()
+                getData(dao.getAllSortByNewest(), _data)
             }
             SortCategory.LATEST.id -> {
-                getAllCatsSortLatest()
+                getData(dao.getAllSortByLatest(), _data)
             }
             SortCategory.NAME.id -> {
-                getAllCatsSortName()
+                getData(dao.getAllSortByName(), _data)
             }
             else -> {
-                getAllCatsSortNewest()
+                getData(dao.getAllSortByNewest(), _data)
             }
         }
     }
 
-    fun getAllCatsSortNewest() = viewModelScope.launch {
+    fun <T> getData(
+        dataSort: Flow<T>,
+        mutableLiveData: MutableLiveData<T>
+    ) = viewModelScope.launch {
         _loading.value = true
         withContext(Dispatchers.IO) {
-            dao.getAllSortByNewest().collect {
+            dataSort.collect {
                 withContext(Dispatchers.Main) {
-                    _data.value = it
-                    _loading.value = false
-                }
-            }
-        }
-    }
-
-    fun getAllCatsSortLatest() = viewModelScope.launch {
-        _loading.value = true
-        withContext(Dispatchers.IO) {
-            dao.getAllSortByLatest().collect {
-                withContext(Dispatchers.Main) {
-                    _data.value = it
-                    _loading.value = false
-                }
-            }
-        }
-    }
-
-    fun getAllCatsSortName() = viewModelScope.launch {
-        _loading.value = true
-        withContext(Dispatchers.IO) {
-            dao.getAllSortByName().collect {
-                withContext(Dispatchers.Main) {
-                    _data.value = it
+                    mutableLiveData.value = it
                     _loading.value = false
                 }
             }

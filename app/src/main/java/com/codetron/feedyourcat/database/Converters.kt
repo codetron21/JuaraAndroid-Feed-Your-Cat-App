@@ -1,6 +1,7 @@
 package com.codetron.feedyourcat.database
 
 import android.net.Uri
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import java.util.*
 
