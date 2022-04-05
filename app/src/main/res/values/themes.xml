@@ -15,9 +15,14 @@
         <item name="toolbarStyle">@style/ToolbarStyle</item>
         <item name="shapeAppearanceLargeComponent">@style/LargeComponentStyle</item>
         <item name="shapeAppearanceMediumComponent">@style/MediumComponentStyle</item>
+        <item name="actionModeBackground">@color/orange_dark_primary</item>
+        <item name="actionModeSplitBackground">@color/orange_dark_primary</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorControlNormal">@color/black</item>
     </style>
 
     <style name="Theme.FeedYourCat.Splash">
         <item name="android:windowBackground">@color/orange_primary</item>
     </style>
+
 </resources>

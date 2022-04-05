@@ -4,14 +4,19 @@ import android.content.Context
 import androidx.lifecycle.*
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
 import com.codetron.feedyourcat.database.dao.FeedCatDao
+import com.codetron.feedyourcat.database.dao.FeedDao
 import com.codetron.feedyourcat.model.FeedCat
 import com.codetron.feedyourcat.model.SortCategory
+import com.codetron.feedyourcat.utils.Event
+import com.codetron.feedyourcat.utils.LiveEvent
+import com.codetron.feedyourcat.utils.MutableLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ListFeedViewModel(
+    private val feedDao: FeedDao,
     private val feedCatDao: FeedCatDao,
 ) : ViewModel() {
 
@@ -23,6 +28,9 @@ class ListFeedViewModel(
 
     private val _data = MutableLiveData<List<FeedCat>>()
     val data: LiveData<List<FeedCat>> get() = _data
+
+    private val _message = MutableLiveEvent<Int>()
+    val message: LiveEvent<Int> get() = _message
 
     init {
         getIsCatAvailable()
@@ -70,12 +78,25 @@ class ListFeedViewModel(
         }
     }
 
+    fun deleteListData(selectedList: List<FeedCat>) = viewModelScope.launch {
+        _loading.value = true
+        withContext(Dispatchers.IO) {
+            feedDao.deleteByIds(selectedList.map { it.feedId })
+            withContext(Dispatchers.Main) {
+                _message.value = Event(selectedList.size)
+            }
+        }
+        _loading.value = false
+    }
+
+
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun factory(context: Context) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 val db = FeedYourCatDatabase.getInstance(context)
                 return ListFeedViewModel(
+                    db.feedDao(),
                     db.feedCatDao(),
                 ) as T
             }

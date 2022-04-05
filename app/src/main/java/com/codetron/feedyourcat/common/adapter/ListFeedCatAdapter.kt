@@ -1,9 +1,14 @@
 package com.codetron.feedyourcat.common.adapter
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +20,8 @@ import com.codetron.feedyourcat.utils.toHourMinute
 
 class ListFeedCatAdapter :
     ListAdapter<FeedCat, ListFeedCatAdapter.FeedCatViewHolder>(DIFF_CALLBACK) {
+
+    var trackter: SelectionTracker<Long>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedCatViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -36,7 +43,7 @@ class ListFeedCatAdapter :
                 crossfade(true)
                 placeholder(R.color.green_secondary)
             }
-
+            binding.container.removeAllViews()
             data.times.forEach {
                 val textView = TextView(binding.root.context)
                 textView.text = it.toHourMinute()
@@ -48,8 +55,34 @@ class ListFeedCatAdapter :
 
                 binding.container.addView(textView)
             }
+
+            trackter?.let {
+                setItemSelected(binding.root.context, it.isSelected(data.feedId))
+            }
         }
 
+        fun getItem(): ItemDetailsLookup.ItemDetails<Long> =
+            object : ItemDetailsLookup.ItemDetails<Long>() {
+                override fun getPosition(): Int = adapterPosition
+                override fun getSelectionKey(): Long = currentList[adapterPosition].feedId
+            }
+
+        private fun setItemSelected(context: Context, isSelected: Boolean) {
+            if (isSelected.not()) {
+                binding.card.strokeWidth = 0
+                return
+            }
+
+            binding.card.strokeWidth = 4
+            binding.card.setStrokeColor(
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.orange_primary
+                    )
+                )
+            )
+        }
     }
 
     companion object {

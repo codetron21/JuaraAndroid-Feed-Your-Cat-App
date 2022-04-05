@@ -68,7 +68,7 @@ class ListCatSelectedAdapter(
                 return
             }
 
-            binding.card.strokeWidth = 2
+            binding.card.strokeWidth = 4
             binding.card.setStrokeColor(
                 ColorStateList.valueOf(
                     ContextCompat.getColor(

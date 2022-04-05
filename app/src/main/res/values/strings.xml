@@ -26,6 +26,7 @@
     <string name="message_choose_cat">Please choose a cat!</string>
     <string name="message_time_empty">Feed time can\'t be null</string>
     <string name="message_success_save_feed">Success to add feed cat!</string>
+    <string name="message_success_delete">%d data get deleted!</string>
     <string name="message_failed_save_feed">Failed to add feed cat!</string>
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
@@ -36,8 +37,10 @@
     <string name="label_feed_time">Feed time</string>
     <string name="label_time">Time</string>
     <string name="label_add">Add</string>
+    <string name="label_submit">submit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_selected">%d selected</string>
 
     <string name="cd_button_add">Button add</string>
     <string name="cd_image">Image</string>
-    <string name="label_submit">submit</string>
 </resources>
