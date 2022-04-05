@@ -38,6 +38,13 @@
             app:fontFamily="@font/poppins_medium"
             tools:text="@tools:sample/lorem/random" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_feed_time"
+            android:textSize="12sp"
+            app:fontFamily="@font/poppins_light" />
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
