@@ -2,6 +2,7 @@ package com.codetron.feedyourcat.features.addfeed
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codetron.feedyourcat.R
 import com.codetron.feedyourcat.common.adapter.ListCatSelectedAdapter
 import com.codetron.feedyourcat.common.adapter.ListTimeAdapter
+import com.codetron.feedyourcat.common.alarm.AlarmReceiver
 import com.codetron.feedyourcat.common.dialog.LoadingDialog
 import com.codetron.feedyourcat.common.dialog.TimeDialog
 import com.codetron.feedyourcat.databinding.FragmentAddFeedBinding
+import com.codetron.feedyourcat.features.main.MainActivity
+import com.codetron.feedyourcat.utils.combineId
 import com.google.android.material.snackbar.Snackbar
+
+private const val TAG = "AddFeedFragment"
 
 class AddFeedFragment : Fragment() {
 
@@ -39,6 +45,8 @@ class AddFeedFragment : Fragment() {
     private val viewModel by viewModels<AddFeedViewModel> {
         AddFeedViewModel.factory(requireContext())
     }
+
+    private val alarmReceiver by lazy { AlarmReceiver() }
 
     private val timeCallback = { hour: Int, minute: Int ->
         viewModel.setTime(hour * 60 + minute)
@@ -135,7 +143,19 @@ class AddFeedFragment : Fragment() {
         }
 
         binding?.buttonSubmit?.setOnClickListener {
-            viewModel.onButtonSubmitClicked {
+            viewModel.onButtonSubmitClicked { cat, feed ->
+                feed.times.forEachIndexed { index, i ->
+                    val id = cat.id.combineId(index.toLong())
+                    Log.d(TAG, "add notification id $id")
+                    setAlarm(
+                        notificationId = id.toInt(),
+                        channelId = id,
+                        channelName = id,
+                        title = getString(R.string.notification_title),
+                        message = getString(R.string.notification_message, cat.name),
+                        times = i
+                    )
+                }
                 requireActivity().finish()
             }
         }
@@ -143,6 +163,28 @@ class AddFeedFragment : Fragment() {
         binding?.toolbar?.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
+    }
+
+    private fun setAlarm(
+        notificationId: Int,
+        channelId: String,
+        channelName: String,
+        title: String,
+        message: String,
+        times: Int
+    ) {
+        val destination = MainActivity::class.qualifiedName.toString()
+
+        alarmReceiver.setAlarm(
+            requireContext(),
+            notificationId,
+            channelId,
+            channelName,
+            title,
+            message,
+            times,
+            destination
+        )
     }
 
 }

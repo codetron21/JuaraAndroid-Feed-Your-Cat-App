@@ -7,6 +7,7 @@ import com.codetron.feedyourcat.R
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
 import com.codetron.feedyourcat.database.dao.FeedCatDao
 import com.codetron.feedyourcat.database.dao.FeedDao
+import com.codetron.feedyourcat.model.Cat
 import com.codetron.feedyourcat.model.CatSelectedItem
 import com.codetron.feedyourcat.model.Feed
 import com.codetron.feedyourcat.model.Time
@@ -75,7 +76,7 @@ class AddFeedViewModel(
         _listTime.value = newListTime
     }
 
-    fun onButtonSubmitClicked(finish: () -> Unit) = viewModelScope.launch {
+    fun onButtonSubmitClicked(finish: (cat: Cat, feed: Feed) -> Unit) = viewModelScope.launch {
         val selectedCat = _listCats.value?.find { it.isSelected }
         if (selectedCat == null) {
             _showMessage.value = Event(R.string.message_choose_cat)
@@ -98,7 +99,7 @@ class AddFeedViewModel(
                 } else {
                     Event(R.string.message_failed_save_feed)
                 }
-                finish()
+                finish(selectedCat.cat, feed)
             }
         }
     }

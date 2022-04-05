@@ -14,6 +14,10 @@ fun Int.toHourMinute(): String {
     return "${checkDigit(hour)}:${checkDigit(minute)}"
 }
 
+fun Long.combineId(vararg id: Long): String {
+    return "${this}${id.joinToString(separator = "")}"
+}
+
 private fun checkDigit(digit: String): String {
     return if (digit.length == 1) "0$digit"
     else digit

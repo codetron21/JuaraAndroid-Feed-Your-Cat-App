@@ -1,6 +1,7 @@
 package com.codetron.feedyourcat.features.main.feed
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -20,11 +22,18 @@ import com.codetron.feedyourcat.R
 import com.codetron.feedyourcat.common.adapter.FeedCatItemKeyProvider
 import com.codetron.feedyourcat.common.adapter.FeedCatItemsDetailsLookup
 import com.codetron.feedyourcat.common.adapter.ListFeedCatAdapter
+import com.codetron.feedyourcat.common.alarm.AlarmReceiver
 import com.codetron.feedyourcat.databinding.FragmentListMainBinding
 import com.codetron.feedyourcat.features.main.MainActivity
 import com.codetron.feedyourcat.features.main.MainFragment
 import com.codetron.feedyourcat.features.main.MainViewModel
+import com.codetron.feedyourcat.model.FeedCat
+import com.codetron.feedyourcat.utils.combineId
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
+
+private const val TAG = "ListFeedFragment"
 
 class ListFeedFragment : Fragment(), MainFragment.MenuContextListener {
 
@@ -40,6 +49,8 @@ class ListFeedFragment : Fragment(), MainFragment.MenuContextListener {
     private val sharedViewModel by activityViewModels<MainViewModel> {
         MainViewModel.factory
     }
+
+    private val alarmReceiver by lazy { AlarmReceiver() }
 
     private var snackbar: Snackbar? = null
     private var actionMode: ActionMode? = null
@@ -61,7 +72,6 @@ class ListFeedFragment : Fragment(), MainFragment.MenuContextListener {
         setupView()
         observeViewModel()
         buttonListeners()
-
 
     }
 
@@ -91,7 +101,12 @@ class ListFeedFragment : Fragment(), MainFragment.MenuContextListener {
             tracker?.selection?.contains(it.feedId) ?: false
         }.toMutableList()
 
-        viewModel.deleteListData(selectedList)
+        lifecycleScope.launch {
+            ensureActive()
+            cancelAlarm(selectedList)
+            viewModel.deleteListData(selectedList)
+        }
+
         actionMode?.finish()
     }
 
@@ -104,6 +119,18 @@ class ListFeedFragment : Fragment(), MainFragment.MenuContextListener {
         binding?.buttonAdd?.isEnabled = true
         binding?.buttonSort?.isEnabled = true
         (parentFragment as MainFragment).enabledView()
+    }
+
+    private fun cancelAlarm(list: List<FeedCat>) {
+        list.forEach { feedCat ->
+            feedCat.times.forEachIndexed { index, _ ->
+                val id = feedCat.catId.combineId(index.toLong()).toInt()
+                if (alarmReceiver.isAlarmSet(requireContext(), id)) {
+                    Log.d(TAG, "remove notification id $id")
+                    alarmReceiver.cancelAlarm(requireContext(), id)
+                }
+            }
+        }
     }
 
     private fun setupView() {
