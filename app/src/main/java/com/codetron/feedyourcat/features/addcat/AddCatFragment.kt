@@ -15,11 +15,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat.common.alarm.AlarmReceiver
 import com.codetron.feedyourcat.common.dialog.DateDialog
 import com.codetron.feedyourcat.common.dialog.LoadingDialog
 import com.codetron.feedyourcat.databinding.FragmentAddCatBinding
 import com.codetron.feedyourcat.model.Cat
+import com.codetron.feedyourcat.model.FeedCat
 import com.codetron.feedyourcat.model.StateCat
+import com.codetron.feedyourcat.utils.combineId
 import com.codetron.feedyourcat.utils.formatString
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +32,8 @@ class AddCatFragment : Fragment() {
 
     private var _binding: FragmentAddCatBinding? = null
     private val binding get() = _binding
+
+    private val alarmReceiver by lazy { AlarmReceiver() }
 
     private val viewModel by viewModels<AddCatViewModel> { AddCatViewModel.factory(requireContext()) }
 
@@ -109,7 +114,21 @@ class AddCatFragment : Fragment() {
         }
     }
 
+    private fun cancelAlarm(feedCat: FeedCat) {
+        feedCat.times.forEachIndexed { index, _ ->
+            val id = feedCat.catId.combineId(index.toLong()).toInt()
+            if (alarmReceiver.isAlarmSet(requireContext(), id)) {
+                alarmReceiver.cancelAlarm(requireContext(), id)
+            }
+        }
+    }
+
     private fun observeViewModel() {
+        viewModel.feedCat.observe(viewLifecycleOwner) { event ->
+            val feedCat = event.get() ?: return@observe
+            cancelAlarm(feedCat)
+        }
+
         viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
             if (uri != null) {
                 binding?.imageCat?.load(uri) {

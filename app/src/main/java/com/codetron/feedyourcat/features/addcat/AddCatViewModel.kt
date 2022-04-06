@@ -4,9 +4,11 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
 import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.database.dao.CatDao
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
+import com.codetron.feedyourcat.database.dao.CatDao
+import com.codetron.feedyourcat.database.dao.FeedCatDao
 import com.codetron.feedyourcat.model.Cat
+import com.codetron.feedyourcat.model.FeedCat
 import com.codetron.feedyourcat.model.StateCat
 import com.codetron.feedyourcat.utils.Event
 import com.codetron.feedyourcat.utils.LiveEvent
@@ -16,7 +18,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class AddCatViewModel(private val dao: CatDao) : ViewModel() {
+class AddCatViewModel(
+    private val dao: CatDao,
+    private val feedCatDao: FeedCatDao
+) : ViewModel() {
 
     var state: StateCat = StateCat.ADD
         private set
@@ -47,6 +52,9 @@ class AddCatViewModel(private val dao: CatDao) : ViewModel() {
 
     private val _imageUri = MutableLiveData<Uri?>(null)
     val imageUri: LiveData<Uri?> get() = _imageUri
+
+    private val _feedCat = MutableLiveEvent<FeedCat?>()
+    val feedCat: LiveEvent<FeedCat?> get() = _feedCat
 
     fun setDate(date: Date?) {
         _date.value = date
@@ -81,7 +89,10 @@ class AddCatViewModel(private val dao: CatDao) : ViewModel() {
 
     fun deleteDataById(id: Long) = viewModelScope.launch {
         _loading.value = true
-        withContext(Dispatchers.IO) { dao.deleteById(id) }
+        withContext(Dispatchers.IO) {
+            _feedCat.postValue(Event(feedCatDao.getFeedCatByCatId(id)))
+            dao.deleteById(id)
+        }
         _loading.value = false
     }
 
@@ -115,10 +126,10 @@ class AddCatViewModel(private val dao: CatDao) : ViewModel() {
         @Suppress("UNCHECKED_CAST")
         fun factory(context: Context) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val db = FeedYourCatDatabase.getInstance(context)
                 return AddCatViewModel(
-                    FeedYourCatDatabase
-                        .getInstance(context)
-                        .catDao()
+                    db.catDao(),
+                    db.feedCatDao()
                 ) as T
             }
         }

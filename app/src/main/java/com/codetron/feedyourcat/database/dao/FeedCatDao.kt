@@ -51,6 +51,19 @@ interface FeedCatDao {
 
     @Transaction
     @Query(
+        "SELECT c.id as catId, " +
+                "f.id as feedId, " +
+                "c.name as name, " +
+                "c.photo as photo, " +
+                "f.times as times " +
+                "FROM Feed f JOIN Cat c " +
+                "ON c.id = f.cat_id " +
+                "WHERE c.id = :id"
+    )
+    suspend fun getFeedCatByCatId(id: Long): FeedCat?
+
+    @Transaction
+    @Query(
         "SELECT Cat.id, Cat.photo,Cat.birth_date,Cat.name " +
                 "FROM Cat LEFT JOIN Feed " +
                 "ON Cat.id = Feed.cat_id " +
