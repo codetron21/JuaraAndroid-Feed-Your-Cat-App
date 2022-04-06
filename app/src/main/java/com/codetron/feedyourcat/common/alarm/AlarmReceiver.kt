@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import com.codetron.feedyourcat.common.notification.AppNotification
 import java.util.*
 
@@ -79,13 +78,13 @@ class AlarmReceiver : BroadcastReceiver() {
         val time = calendar.timeInMillis
 
         val pendingIntent = PendingIntent.getBroadcast(
-                context,
-                notificationId,
-                intent,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PendingIntent.FLAG_IMMUTABLE
-                } else 0
-            )
+            context,
+            notificationId,
+            intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.FLAG_IMMUTABLE
+            } else 0
+        )
 
         alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,

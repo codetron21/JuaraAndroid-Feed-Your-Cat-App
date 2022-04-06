@@ -30,7 +30,7 @@ class ListCatFragment : Fragment() {
         }
     }
 
-    private val viewModel by viewModels<ListCatViewModel>() {
+    private val viewModel by viewModels<ListCatViewModel> {
         ListCatViewModel.factory(requireContext())
     }
 

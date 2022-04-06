@@ -27,6 +27,7 @@
 
         <activity
             android:name=".features.main.MainActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

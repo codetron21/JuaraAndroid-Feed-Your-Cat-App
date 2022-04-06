@@ -2,7 +2,6 @@ package com.codetron.feedyourcat.features.main
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
 import com.codetron.feedyourcat.R

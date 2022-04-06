@@ -158,7 +158,7 @@ class ListFeedFragment : Fragment(), MainFragment.MenuContextListener {
             SelectionPredicates.createSelectAnything()
         ).build()
 
-        listFeedCatAdapter.trackter = tracker
+        listFeedCatAdapter.tracker = tracker
 
         tracker?.addObserver(
             object : SelectionTracker.SelectionObserver<Long>() {

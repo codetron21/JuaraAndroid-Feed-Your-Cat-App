@@ -21,7 +21,7 @@ import com.codetron.feedyourcat.utils.toHourMinute
 class ListFeedCatAdapter :
     ListAdapter<FeedCat, ListFeedCatAdapter.FeedCatViewHolder>(DIFF_CALLBACK) {
 
-    var trackter: SelectionTracker<Long>? = null
+    var tracker: SelectionTracker<Long>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedCatViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -56,7 +56,7 @@ class ListFeedCatAdapter :
                 binding.container.addView(textView)
             }
 
-            trackter?.let {
+            tracker?.let {
                 setItemSelected(binding.root.context, it.isSelected(data.feedId))
             }
         }
