@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.codetron.feedyourcat.features.main.MainFragment"
+        android:name="com.codetron.feedyourcat2.features.main.MainFragment"
         tools:layout="@layout/fragment_main">
 
         <action
@@ -22,12 +22,12 @@
 
     <activity
         android:id="@+id/add_cat_activity"
-        android:name="com.codetron.feedyourcat.features.addcat.AddCatActivity"
+        android:name="com.codetron.feedyourcat2.features.addcat.AddCatActivity"
         tools:layout="@layout/activity_add_cat" />
 
     <activity
         android:id="@+id/add_feed_activity"
-        android:name="com.codetron.feedyourcat.features.addfeed.AddFeedActivity"
+        android:name="com.codetron.feedyourcat2.features.addfeed.AddFeedActivity"
         tools:layout="@layout/activity_add_feed" />
 
 </navigation>

@@ -12,7 +12,7 @@
         android:background="@color/orange_primary"
         app:title="@string/app_name" />
 
-    <com.codetron.feedyourcat.common.view.SwitchTabView
+    <com.codetron.feedyourcat2.common.view.SwitchTabView
         android:id="@+id/switch_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

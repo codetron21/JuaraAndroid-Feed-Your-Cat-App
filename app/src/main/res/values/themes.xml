@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.FeedYourCat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.FeedYourCat" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/orange_primary</item>
         <item name="colorPrimaryVariant">@color/orange_dark_primary</item>
         <item name="colorOnPrimary">@color/black</item>
@@ -8,7 +8,7 @@
         <item name="colorSecondary">@color/green_secondary</item>
         <item name="colorSecondaryVariant">@color/green_dark_secondary</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="circularProgressIndicatorStyle">@style/ProgressBarStyle</item>

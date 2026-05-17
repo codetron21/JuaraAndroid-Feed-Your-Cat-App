@@ -1,0 +1,22 @@
+package com.codetron.feedyourcat2.common.adapter
+
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.codetron.feedyourcat2.features.main.cat.ListCatFragment
+import com.codetron.feedyourcat2.features.main.feed.ListFeedFragment
+
+class PagerMainAdapter(f: Fragment) : FragmentStateAdapter(f) {
+
+    override fun getItemCount(): Int {
+        return 2
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> ListFeedFragment()
+            1 -> ListCatFragment()
+            else -> throw IllegalStateException()
+        }
+    }
+
+}

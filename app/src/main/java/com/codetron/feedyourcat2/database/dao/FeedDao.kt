@@ -1,0 +1,21 @@
+package com.codetron.feedyourcat2.database.dao
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.codetron.feedyourcat2.model.Feed
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface FeedDao {
+
+    @Query("SELECT * FROM Feed")
+    fun getAll(): Flow<List<Feed>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun upsert(feed: Feed): Long
+
+    @Query("DELETE FROM Feed WHERE id IN (:ids)")
+    fun deleteByIds(ids: List<Long>)
+}

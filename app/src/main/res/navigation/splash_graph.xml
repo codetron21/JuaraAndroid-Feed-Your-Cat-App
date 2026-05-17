@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splash_fragment"
-        android:name="com.codetron.feedyourcat.features.splash.SplashFragment"
+        android:name="com.codetron.feedyourcat2.features.splash.SplashFragment"
         tools:layout="@layout/fragment_splash">
 
         <action
@@ -18,7 +18,7 @@
 
     <activity
         android:id="@+id/main_activity"
-        android:name="com.codetron.feedyourcat.features.main.MainActivity"
+        android:name="com.codetron.feedyourcat2.features.main.MainActivity"
         tools:layout="@layout/activity_main" />
 
 </navigation>
