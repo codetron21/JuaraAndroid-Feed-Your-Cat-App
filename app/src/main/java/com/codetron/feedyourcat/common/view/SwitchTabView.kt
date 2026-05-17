@@ -10,8 +10,9 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
 import androidx.viewpager2.widget.ViewPager2
-import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.databinding.ViewTabSwitchBinding
+import com.codetron.feedyourcat2.R
+import com.codetron.feedyourcat2.databinding.ViewTabSwitchBinding
+import androidx.core.content.withStyledAttributes
 
 class SwitchTabView @JvmOverloads constructor(
     context: Context,
@@ -43,16 +44,16 @@ class SwitchTabView @JvmOverloads constructor(
     init {
         _binding = ViewTabSwitchBinding.inflate(LayoutInflater.from(context), this)
 
-        val typedArray = context.obtainStyledAttributes(
+        context.withStyledAttributes(
             attrs,
             R.styleable.SwitchTabView,
             defStyleAttr,
             defStyleRes
-        )
+        ) {
 
-        setAttr(typedArray)
+            setAttr(this)
 
-        typedArray.recycle()
+        }
     }
 
     override fun onDetachedFromWindow() {

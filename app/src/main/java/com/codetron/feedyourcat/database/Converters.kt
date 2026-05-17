@@ -3,6 +3,7 @@ package com.codetron.feedyourcat.database
 import android.net.Uri
 import androidx.room.TypeConverter
 import java.util.*
+import androidx.core.net.toUri
 
 class Converters {
 
@@ -23,7 +24,7 @@ class Converters {
 
     @TypeConverter
     fun stringToUri(str: String): Uri {
-        return Uri.parse(str)
+        return str.toUri()
     }
 
     @TypeConverter

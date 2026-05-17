@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 
 class LoadingDialog : DialogFragment(R.layout.dialog_loading) {
 

@@ -14,11 +14,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 import com.codetron.feedyourcat.common.alarm.AlarmReceiver
 import com.codetron.feedyourcat.common.dialog.DateDialog
 import com.codetron.feedyourcat.common.dialog.LoadingDialog
-import com.codetron.feedyourcat.databinding.FragmentAddCatBinding
+import com.codetron.feedyourcat2.databinding.FragmentAddCatBinding
 import com.codetron.feedyourcat.model.Cat
 import com.codetron.feedyourcat.model.FeedCat
 import com.codetron.feedyourcat.model.StateCat

@@ -1,7 +1,7 @@
 package com.codetron.feedyourcat.features.addcat
 
 import androidx.appcompat.app.AppCompatActivity
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 
 class AddCatActivity : AppCompatActivity(R.layout.activity_add_cat) {
 

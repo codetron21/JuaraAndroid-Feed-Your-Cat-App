@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.databinding.FragmentSplashBinding
+import com.codetron.feedyourcat2.R
+import com.codetron.feedyourcat2.databinding.FragmentSplashBinding
 import com.codetron.feedyourcat.utils.SPLASH_DELAY
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

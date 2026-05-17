@@ -1,6 +1,6 @@
 package com.codetron.feedyourcat.common.resources
 
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 import com.codetron.feedyourcat.model.SortCategory
 import com.codetron.feedyourcat.model.SortItem
 

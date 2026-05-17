@@ -10,7 +10,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 
 class AppNotification(
     private val context: Context,

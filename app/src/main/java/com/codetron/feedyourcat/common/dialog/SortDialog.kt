@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codetron.feedyourcat.common.adapter.ListSortAdapter
-import com.codetron.feedyourcat.databinding.LayoutBottomSheetSortBinding
+import com.codetron.feedyourcat2.databinding.LayoutBottomSheetSortBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SortDialog(

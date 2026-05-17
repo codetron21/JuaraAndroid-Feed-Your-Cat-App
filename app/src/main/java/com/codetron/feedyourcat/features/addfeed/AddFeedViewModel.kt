@@ -3,7 +3,7 @@ package com.codetron.feedyourcat.features.addfeed
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 import com.codetron.feedyourcat.database.FeedYourCatDatabase
 import com.codetron.feedyourcat.database.dao.FeedCatDao
 import com.codetron.feedyourcat.database.dao.FeedDao
@@ -122,10 +122,11 @@ class AddFeedViewModel(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun factory(context: Context) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 val db = FeedYourCatDatabase.getInstance(context)
                 return AddFeedViewModel(db.feedDao(), db.feedCatDao()) as T
             }
+
         }
     }
 }

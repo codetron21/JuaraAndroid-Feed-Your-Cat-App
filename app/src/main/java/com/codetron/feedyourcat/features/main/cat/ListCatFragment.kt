@@ -12,9 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 import com.codetron.feedyourcat.common.adapter.ListCatAdapter
-import com.codetron.feedyourcat.databinding.FragmentListMainBinding
+import com.codetron.feedyourcat2.databinding.FragmentListMainBinding
 import com.codetron.feedyourcat.features.addcat.AddCatActivity
 import com.codetron.feedyourcat.features.main.MainViewModel
 

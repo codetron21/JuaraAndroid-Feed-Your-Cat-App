@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.databinding.ItemCatSelectedBinding
+import com.codetron.feedyourcat2.R
+import com.codetron.feedyourcat2.databinding.ItemCatSelectedBinding
 import com.codetron.feedyourcat.model.CatSelectedItem
 
 typealias CatItemSelectedListener = (Long) -> Unit

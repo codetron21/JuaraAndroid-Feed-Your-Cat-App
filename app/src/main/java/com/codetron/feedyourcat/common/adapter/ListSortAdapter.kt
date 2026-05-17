@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.databinding.ItemSortByBinding
+import com.codetron.feedyourcat2.R
+import com.codetron.feedyourcat2.databinding.ItemSortByBinding
 import com.codetron.feedyourcat.model.SortItem
 
 typealias SortClickListener = (Long) -> Unit

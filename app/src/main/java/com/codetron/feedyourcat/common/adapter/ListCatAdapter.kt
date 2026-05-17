@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.databinding.ItemCatBinding
+import com.codetron.feedyourcat2.R
+import com.codetron.feedyourcat2.databinding.ItemCatBinding
 import com.codetron.feedyourcat.model.Cat
 import com.codetron.feedyourcat.utils.formatString
 

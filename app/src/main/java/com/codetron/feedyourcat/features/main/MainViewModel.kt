@@ -23,15 +23,15 @@ class MainViewModel(dataResources: List<SortItem>) : ViewModel() {
     var state = State.FEED
         private set
 
-    val textSortCats = Transformations.map(_listSortCats) {
+    val textSortCats = _listSortCats.map {
         it.first { i -> i.isSelected }.title
     }
 
-    val textSortFeed = Transformations.map(_listSortFeed) {
+    val textSortFeed = _listSortFeed.map {
         it.first { i -> i.isSelected }.title
     }
 
-    val showDialog = Transformations.map(_showDialog) { event ->
+    val showDialog = _showDialog.map { event ->
         event.get() ?: emptyList<SortItem>()
         when (state) {
             State.FEED -> _listSortFeed.value ?: emptyList()
@@ -63,7 +63,7 @@ class MainViewModel(dataResources: List<SortItem>) : ViewModel() {
 
         @Suppress("UNCHECKED_CAST")
         val factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return MainViewModel(ItemSortResources.getResources()) as T
             }
         }

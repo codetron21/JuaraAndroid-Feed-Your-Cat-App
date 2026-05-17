@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 import com.codetron.feedyourcat.common.adapter.ListCatSelectedAdapter
 import com.codetron.feedyourcat.common.adapter.ListTimeAdapter
 import com.codetron.feedyourcat.common.alarm.AlarmReceiver
 import com.codetron.feedyourcat.common.dialog.LoadingDialog
 import com.codetron.feedyourcat.common.dialog.TimeDialog
-import com.codetron.feedyourcat.databinding.FragmentAddFeedBinding
+import com.codetron.feedyourcat2.databinding.FragmentAddFeedBinding
 import com.codetron.feedyourcat.features.main.MainActivity
 import com.codetron.feedyourcat.utils.combineId
 import com.google.android.material.snackbar.Snackbar

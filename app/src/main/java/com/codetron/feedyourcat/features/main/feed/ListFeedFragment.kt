@@ -18,12 +18,12 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.codetron.feedyourcat.R
+import com.codetron.feedyourcat2.R
 import com.codetron.feedyourcat.common.adapter.FeedCatItemKeyProvider
 import com.codetron.feedyourcat.common.adapter.FeedCatItemsDetailsLookup
 import com.codetron.feedyourcat.common.adapter.ListFeedCatAdapter
 import com.codetron.feedyourcat.common.alarm.AlarmReceiver
-import com.codetron.feedyourcat.databinding.FragmentListMainBinding
+import com.codetron.feedyourcat2.databinding.FragmentListMainBinding
 import com.codetron.feedyourcat.features.main.MainActivity
 import com.codetron.feedyourcat.features.main.MainFragment
 import com.codetron.feedyourcat.features.main.MainViewModel

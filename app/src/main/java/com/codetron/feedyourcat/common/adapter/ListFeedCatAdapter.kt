@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.codetron.feedyourcat.R
-import com.codetron.feedyourcat.databinding.ItemFeedCatBinding
+import com.codetron.feedyourcat2.R
+import com.codetron.feedyourcat2.databinding.ItemFeedCatBinding
 import com.codetron.feedyourcat.model.FeedCat
 import com.codetron.feedyourcat.utils.toHourMinute
 
@@ -63,8 +63,8 @@ class ListFeedCatAdapter :
 
         fun getItem(): ItemDetailsLookup.ItemDetails<Long> =
             object : ItemDetailsLookup.ItemDetails<Long>() {
-                override fun getPosition(): Int = adapterPosition
-                override fun getSelectionKey(): Long = currentList[adapterPosition].feedId
+                override fun getPosition(): Int = bindingAdapterPosition
+                override fun getSelectionKey(): Long = currentList[bindingAdapterPosition].feedId
             }
 
         private fun setItemSelected(context: Context, isSelected: Boolean) {

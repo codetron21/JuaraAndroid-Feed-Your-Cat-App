@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.codetron.feedyourcat.common.adapter.ListSortAdapter
 import com.codetron.feedyourcat.common.dialog.SortDialog
-import com.codetron.feedyourcat.databinding.ActivityMainBinding
+import com.codetron.feedyourcat2.databinding.ActivityMainBinding
 import com.codetron.feedyourcat.features.main.MainViewModel.Companion.State
 
 class MainActivity : AppCompatActivity() {

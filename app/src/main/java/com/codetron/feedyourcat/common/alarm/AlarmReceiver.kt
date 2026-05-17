@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import com.codetron.feedyourcat.common.notification.AppNotification
 import java.util.*
@@ -30,7 +29,7 @@ class AlarmReceiver : BroadcastReceiver() {
             context,
             0,
             Intent(context, Class.forName(destination)),
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         val appNotification = AppNotification(
@@ -81,9 +80,7 @@ class AlarmReceiver : BroadcastReceiver() {
             context,
             notificationId,
             intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                PendingIntent.FLAG_IMMUTABLE
-            } else 0
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         alarmManager.setInexactRepeating(
@@ -99,9 +96,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val intent = Intent(context, AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
             context, id, intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                PendingIntent.FLAG_IMMUTABLE
-            } else 0
+            PendingIntent.FLAG_IMMUTABLE
         )
         pendingIntent.cancel()
         alarmManager.cancel(pendingIntent)
@@ -113,9 +108,7 @@ class AlarmReceiver : BroadcastReceiver() {
             context,
             id,
             intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                PendingIntent.FLAG_IMMUTABLE
-            } else 0
+            PendingIntent.FLAG_IMMUTABLE
         ) != null
     }
 

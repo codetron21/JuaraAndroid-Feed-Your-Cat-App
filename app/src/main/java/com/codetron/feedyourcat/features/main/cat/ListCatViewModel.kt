@@ -56,7 +56,7 @@ class ListCatViewModel(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun factory(context: Context) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return ListCatViewModel(FeedYourCatDatabase.getInstance(context).catDao()) as T
             }
         }
